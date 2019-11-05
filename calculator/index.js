@@ -1,35 +1,58 @@
-let buttonPlus = document.getElementById('buttonPlus');
-let buttonMinus = document.getElementById('buttonMinus');
-let buttonMultiply = document.getElementById('buttonMultiply');
-let buttonDevide = document.getElementById('buttonDevide');
-
-function onButtonPlusClick(){
-	let sum = number1 + number2;
-	alert(sum);
+function getNumber1(){
+	return Number(input1.value);
 }
 
-function onButtonMinusClick(){
-	let sum = number1 - number2;
-	alert(sum);
+function getNumber2(){
+	return Number(input2.value);
 }
 
-function onButtonMultiplyClick(){
-	let sum = number1 * number2;
-	alert(sum);
+function makeOperation(operationCode){
+	var number1 = Number(input1.value);
+	var number2 = Number(input2.value);
+
+
+	switch(operationCode) {
+  		case '+':
+    		var result = getNumber1() + getNumber2();
+    		break;
+  		case '-':
+  			var result = getNumber1() - getNumber2();
+  			break;
+  		case '*':
+  			var result = getNumber1() * getNumber2();
+  			break;
+  		case '/':
+  			var result = getNumber1() / getNumber2();
+  			break;
+  	}
+  	alert(result);
 }
 
-function onButtonDevideClick(){
-	let sum = number1 / number2;
-	alert(sum);
+function onOperationButtonClick(eventObject){
+	// Получить текущий выбранный элемент из события.
+	var clickedElement = eventObject.currentTarget;
+	// Получить html внутри тэга.
+	var opperation = clickedElement.innerHTML;
+	makeOperation(opperation);
 }
+
+function addCommonEventListener(i){
+	button = operationButtons[i];
+	button.addEventListener('click', onOperationButtonClick);
+}
+// let buttonPlus = document.getElementById('buttonPlus');
+// let buttonMinus = document.getElementById('buttonMinus');
+// let buttonMultiply = document.getElementById('buttonMultiply');
+// let buttonDevide = document.getElementById('buttonDevide');
 
 let input1 = document.getElementById('number1');
 let input2 = document.getElementById('number2');
 
-var number1 = Number(input1.value);
-var number2 = Number(input2.value);
+// var operationButtons = [buttonPlus, buttonMinus, buttonMultiply, buttonDevide];
+var operationButtons = document.getElementsByClassName('operation-button');
 
-buttonPlus.addEventListener('click', onButtonPlusClick);
-buttonMinus.addEventListener('click', onButtonMinusClick);
-buttonMultiply.addEventListener('click', onButtonMultiplyClick);
-buttonDevide.addEventListener('click', onButtonDevideClick);
+for (var i = 0; i < operationButtons.length; i++){
+	button = operationButtons[i];
+	button.addEventListener('click', onOperationButtonClick);
+}
+
